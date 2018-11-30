@@ -8,6 +8,7 @@ public class Main {
     public static int numClients;
     public static ArrayList<String> clients = new ArrayList<>();
     public static PetrolStation petrolStation;
+    public static GUI gui;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -23,7 +24,7 @@ public class Main {
         for (int i = 0; i < numClients; i++) {
             clients.add(sc.next());
         }
-
+        gui = new GUI(numPumps);
         for ( int i=0;i<numClients;i++){
             Threads client = new Threads(clients.get(i),petrolStation);
             client.start();
