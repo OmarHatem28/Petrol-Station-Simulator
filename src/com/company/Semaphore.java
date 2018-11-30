@@ -13,16 +13,17 @@ public class Semaphore {
     }
 
     public void acquire(String name, Threads obj){
-        counter--;
-
+        synchronized (this) {
+            counter--;
+        }
         if ( counter < 0  ){
-            System.out.println(name + " Arrived and waiting");
+            System.out.println(name + " Waiting in the Queue");
 
             try {
-                obj.join();
                 queue.add(obj);
+                obj.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
         }
     }
@@ -32,10 +33,7 @@ public class Semaphore {
 
         if ( !queue.isEmpty() ){
             Threads customer = queue.remove();
-
             customer.interrupt();
         }
-
     }
-
 }

@@ -2,38 +2,25 @@ package com.company;
 
 public class Threads extends Thread {
 
-    String customerName="";
-    static Semaphore semaphore = new Semaphore(2);
+    String clientName="";
+    PetrolStation petrolStation;
 
-    public Threads ( String name ){
-        customerName = name;
+    public Threads ( String name, PetrolStation petrolStation ){
+        clientName = name;
+        this.petrolStation = petrolStation;
     }
 
     @Override
     public void run(){
 
-        arrived();
-        semaphore.acquire(customerName, this);
-        served();
-        paying();
-        leaving();
+        petrolStation.arrived(this);
+        petrolStation.semaphore.acquire(clientName, this);
+        petrolStation.served(this);
+        petrolStation.paying(this);
+        petrolStation.leaving(this);
+        petrolStation.semaphore.release();
 
     }
 
-    public synchronized void arrived(){
-        System.out.println(customerName+" Arrived");
-    }
 
-    public synchronized void served(){
-        System.out.println(customerName+" is Being Served");
-    }
-
-    public synchronized void paying(){
-        System.out.println(customerName+" is paying");
-    }
-
-    public synchronized void leaving(){
-        System.out.println(customerName+" is leaving");
-        semaphore.release();
-    }
 }
