@@ -15,6 +15,7 @@ public class Threads extends Thread {
 
         petrolStation.arrived(this);
         petrolStation.semaphore.acquire(clientName, this);
+        petrolStation.occupyPump(this);
         petrolStation.served(this);
         petrolStation.paying(this);
         petrolStation.leaving(this);
