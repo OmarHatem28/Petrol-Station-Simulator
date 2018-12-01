@@ -34,22 +34,18 @@ public class GUI {
     }
 
     public static void setColorRed(int i,String msg){
-        buttons.get(i).setText(msg);
+        buttons.get(i).setText("Pump " + (i+1) +": "+msg);
         buttons.get(i).setBackground(Color.RED);
     }
 
     public static void setColorYellow(int i,String msg){
-        buttons.get(i).setText(msg);
+        buttons.get(i).setText("Pump " + (i+1) +": "+msg);
         buttons.get(i).setBackground(Color.YELLOW);
     }
 
     public static void setColorGreen(int i,String msg){
-        buttons.get(i).setText(msg);
+        buttons.get(i).setText("Pump " + (i+1) +": "+msg);
         buttons.get(i).setBackground(Color.GREEN);
     }
 
-    public static void setColorBlue(int i,String msg){
-        buttons.get(i).setText(msg);
-        buttons.get(i).setBackground(Color.BLUE);
-    }
 }

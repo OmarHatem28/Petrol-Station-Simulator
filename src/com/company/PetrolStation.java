@@ -18,22 +18,23 @@ public class PetrolStation {
 
     public synchronized void arrived( Threads client ){
         System.out.println(client.clientName+" Arrived");
-        Main.gui.setColorBlue(0,client.clientName+" Arrived");
     }
 
-    public synchronized void occupyPump( Threads client ){
-        for ( int i=0;i<pumpNumb;i++){
+    public synchronized int occupyPump( Threads client ){
+        int i;
+        for ( i=0;i<pumpNumb;i++){
             if ( pumps[i] == null ){
                 System.out.println(client.clientName + " occupied pump number "+ (i+1));
                 pumps[i]=client;
                 break;
             }
         }
+        return i;
     }
 
-    public synchronized void served( Threads client ){
+    public synchronized void served( Threads client , int index){
         System.out.println(client.clientName+" is Being Served");
-        Main.gui.setColorYellow(0, client.clientName+" is Being Served");
+        Main.gui.setColorYellow(index, client.clientName+" is Being Served");
         try {
             client.sleep(rand.nextInt(10000));
         } catch (InterruptedException e) {
@@ -41,9 +42,9 @@ public class PetrolStation {
         }
     }
 
-    public synchronized void paying( Threads client ){
+    public synchronized void paying( Threads client , int index ){
         System.out.println(client.clientName+" is paying");
-        Main.gui.setColorGreen(1,client.clientName+" is paying");
+        Main.gui.setColorGreen(index,client.clientName+" is paying");
         try {
             client.sleep(rand.nextInt(5000));
         } catch (InterruptedException e) {
@@ -51,14 +52,14 @@ public class PetrolStation {
         }
     }
 
-    public synchronized void leaving( Threads client ){
+    public synchronized void leaving( Threads client , int index ){
         System.out.println(client.clientName+" is leaving");
         for ( int i=0;i<pumpNumb;i++){
             if ( pumps[i] != null && pumps[i].clientName == client.clientName ){
                 pumps[i]=null;
             }
         }
-        Main.gui.setColorRed(1,client.clientName+" is leaving");
+        Main.gui.setColorRed(index,client.clientName+" is leaving");
         semaphore.release();
     }
 

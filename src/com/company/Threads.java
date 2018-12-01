@@ -4,6 +4,7 @@ public class Threads extends Thread {
 
     String clientName="";
     PetrolStation petrolStation;
+    private int index;
 
     public Threads ( String name, PetrolStation petrolStation ){
         clientName = name;
@@ -15,10 +16,10 @@ public class Threads extends Thread {
 
         petrolStation.arrived(this);
         petrolStation.semaphore.acquire(clientName, this);
-        petrolStation.occupyPump(this);
-        petrolStation.served(this);
-        petrolStation.paying(this);
-        petrolStation.leaving(this);
+        index = petrolStation.occupyPump(this);
+        petrolStation.served(this,index);
+        petrolStation.paying(this,index);
+        petrolStation.leaving(this,index);
         petrolStation.semaphore.release();
 
     }
